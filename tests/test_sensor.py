@@ -1,6 +1,7 @@
 """Tests for the battery_sim sensor platform."""
 import pytest
 
+from homeassistant.const import ATTR_UNIT_OF_MEASUREMENT
 from homeassistant.core import State
 from homeassistant.helpers.dispatcher import async_dispatcher_send
 
@@ -43,6 +44,7 @@ from .common import (
     SIM_EXPORT_SENSOR_ID,
     SIM_IMPORT_SENSOR_ID,
     SOLAR_CAP_SENSOR_ID,
+    WH_ATTRIBUTES,
     config_with_solar,
 )
 
@@ -172,6 +174,28 @@ async def test_new_battery_sim_sensors_zero_when_sources_not_ready(
 
     assert handle._sensors[GRID_IMPORT_SIM] == 0.0
     assert handle._sensors[GRID_EXPORT_SIM] == 0.0
+
+
+async def test_new_battery_sim_sensor_converts_wh_source(hass, setup_battery):
+    """Source meters reporting in Wh are converted to kWh when syncing."""
+    hass.states.async_set(IMPORT_SENSOR_ID, "123400", WH_ATTRIBUTES)
+    hass.states.async_set(EXPORT_SENSOR_ID, "55500", WH_ATTRIBUTES)
+    _entry, handle = await setup_battery()
+
+    assert handle._sensors[GRID_IMPORT_SIM] == pytest.approx(123.4)
+    assert handle._sensors[GRID_EXPORT_SIM] == pytest.approx(55.5)
+
+
+async def test_new_battery_sim_sensor_ignores_unsupported_units(
+    hass, setup_battery, caplog
+):
+    hass.states.async_set(
+        IMPORT_SENSOR_ID, "123.4", {ATTR_UNIT_OF_MEASUREMENT: "MJ"}
+    )
+    _entry, handle = await setup_battery()
+
+    assert handle._sensors[GRID_IMPORT_SIM] == 0.0
+    assert "unsupported energy unit" in caplog.text
 
 
 async def test_restored_sim_sensor_not_overwritten_by_source(hass, setup_battery):

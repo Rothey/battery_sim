@@ -799,8 +799,22 @@ class SimulatedBatteryHandle:
                 STATE_UNKNOWN,
             ]:
                 continue
+            units = source_state.attributes.get(ATTR_UNIT_OF_MEASUREMENT)
+            if units not in [UnitOfEnergy.KILO_WATT_HOUR, UnitOfEnergy.WATT_HOUR]:
+                _LOGGER.warning(
+                    "(%s) Cannot sync %s to source %s: unsupported energy unit "
+                    "'%s'; expected kWh or Wh",
+                    self._name,
+                    target_sensor_key,
+                    input_details[SENSOR_ID],
+                    units,
+                )
+                continue
+            conversion_factor = 1.0 if units == UnitOfEnergy.KILO_WATT_HOUR else 0.001
             try:
-                self._sensors[target_sensor_key] = float(source_state.state)
+                self._sensors[target_sensor_key] = (
+                    float(source_state.state) * conversion_factor
+                )
             except ValueError:
                 _LOGGER.warning(
                     "(%s) Cannot sync %s to source %s: state '%s' is not numeric",
