@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   version="1.1"
+   id="svg1"
+   width="256"
+   height="256"
+   viewBox="0 0 256 256"
+   sodipodi:docname="icon.svg"
+   inkscape:version="1.4.2 (f4327f4, 2025-05-13)"
+   inkscape:export-filename="custom_components\battery_sim\brand\icon.png"
+   inkscape:export-xdpi="96"
+   inkscape:export-ydpi="96"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs1" />
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="3.3178709"
+     inkscape:cx="157.17911"
+     inkscape:cy="220.02061"
+     inkscape:window-width="3840"
+     inkscape:window-height="2054"
+     inkscape:window-x="-11"
+     inkscape:window-y="-11"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="g1" />
+  <g
+     inkscape:groupmode="layer"
+     inkscape:label="Image"
+     id="g1">
+    <text
+       xml:space="preserve"
+       style="font-style:italic;font-size:133.333px;font-family:Calibri;-inkscape-font-specification:'Calibri Italic';text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:none;stroke:#000000;stroke-width:2.51338"
+       x="83.611809"
+       y="217.93492"
+       id="text1"><tspan
+         sodipodi:role="line"
+         id="tspan1"
+         x="83.611809"
+         y="217.93492"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:133.333px;font-family:Gadugi;-inkscape-font-specification:Gadugi;fill:#000000" /></text>
+    <path
+       style="fill:#030303;stroke:none"
+       d="M 39.536907,14.329699 V 36.7297 c -10.232784,0 -23.621781,-1.419226 -31.9045286,7.483122 -2.95342,3.174354 -3.050006,7.128321 -3.08129,16.225381 L 4.0182874,215.37351 c -0.03976,11.56266 -0.485993,13.58354 3.614091,18.67306 7.4786326,9.28339 20.7968256,7.48314 30.8378616,7.48314 v -22.4 H 27.803573 V 59.129701 h 66.133338 l 26.020929,0.0053 -0.10125,24.528013 -0.31968,62.933336 h 22.4 V 70.863035 c 0,-9.067627 1.07999,-24.50459 -4.50616,-29.627166 C 131.13578,35.4633 116.88375,36.7297 107.80358,36.7297 V 14.329699 H 39.536907 M 121.67025,158.32971 v 14.93333 h 18.13333 v -14.93333 h -18.13333 m -77.866676,60.8 c 0,4.10262 -1.482239,11.81332 1.096297,15.25103 3.150867,4.20075 12.300839,4.49481 17.037037,5.15473 16.072722,2.23956 37.723403,1.28176 41.497942,-18.27242 3.51381,-18.20344 -8.206719,-26.5143 -24.431274,-30.23869 -4.952751,-1.13693 -20.365341,-2.85874 -16.920989,-11.34239 5.324846,-13.11541 28.300685,-3.97729 37.187664,-1.08559 0,-3.92134 1.352169,-11.02393 -1.0963,-14.33169 -2.71319,-3.66539 -10.823158,-3.47852 -14.903708,-3.96708 -13.095297,-1.56787 -30.935378,-2.10044 -37.793419,11.89877 -1.555709,3.17565 -2.498559,7.13541 -2.601644,10.66666 -0.42926,14.70463 10.595012,21.2854 23.328395,24.39506 5.803711,1.41735 13.871282,1.9632 17.294646,7.66338 3.534831,5.88579 -3.664502,10.64466 -8.761312,11.44692 -10.758342,1.69341 -21.30005,-3.28649 -30.933335,-7.23869 m 132.266676,-32 v -6.4 h -19.2 v 58.66667 h 19.2 c 0,-11.39857 -2.57225,-26.41214 0.8576,-37.33334 1.45978,-4.64817 6.30191,-10.73626 11.89549,-8.90947 4.64346,1.5165 5.38784,6.89636 5.99012,11.04281 1.65697,11.40735 0.45679,23.68284 0.45679,35.2 h 18.13333 c 0,-11.63595 -2.32514,-26.17567 1.30617,-37.33334 1.51135,-4.64378 5.72836,-10.7395 11.47408,-8.90947 5.15377,1.6415 6.27991,7.4328 6.40411,12.10947 0.30171,11.36119 0.0156,22.76784 0.0156,34.13334 h 18.13333 c 0,-14.8745 4.29046,-37.76322 -2.85186,-51.19589 -7.11907,-13.38898 -29.16318,-12.33601 -35.54814,1.06255 -10.84348,-12.30117 -24.03793,-13.72636 -36.26667,-2.13333 m -54.4,-6.4 v 58.66667 h 18.13333 v -58.66667 z"
+       id="path1"
+       sodipodi:nodetypes="ccsssscccccccccsscccccccccscssscsssssssccccccsssccsssccsccccccc" />
+  </g>
+</svg>
