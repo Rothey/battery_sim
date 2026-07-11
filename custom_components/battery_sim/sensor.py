@@ -268,6 +268,15 @@ class DisplayOnlySensor(RestoreEntity, SensorEntity):
         else:
             _LOGGER.debug("No sensor state - presume new battery.")
             self._available = False
+            if any(
+                input_details[SIMULATED_SENSOR] == self._sensor_type
+                for input_details in self._handle._inputs
+            ):
+                # New battery: start the simulated grid meters in sync with
+                # their source entities, exactly like a battery reset does.
+                self._handle.reset_sim_sensor(self._sensor_type)
+                self._available = True
+                await self.async_update_ha_state(True)
 
         async def async_update_state():
             """Update sensor state."""
