@@ -94,3 +94,25 @@ set_stored_energy_value:
         number:
           mode: box
           step: 0.01
+
+reduce_battery_state:
+  name: battery_sim.reduce_battery_state.name
+  description: battery_sim.reduce_battery_state.description
+  fields:
+    device_id:
+      name: battery_sim.reduce_battery_state.fields.device_id.name
+      description: battery_sim.reduce_battery_state.fields.device_id.description
+      required: true
+      selector:
+        device:
+          integration: battery_sim
+    reduction_kwh:
+      name: battery_sim.reduce_battery_state.fields.reduction_kwh.name
+      description: battery_sim.reduce_battery_state.fields.reduction_kwh.description
+      required: true
+      selector:
+        number:
+          mode: box
+          min: 0
+          step: 0.1
+          unit_of_measurement: kWh

@@ -238,6 +238,20 @@
           "description": "Totale geldwaarde die momenteel is toegewezen aan de energie die in de batterij is opgeslagen"
         }
       }
+    },
+    "reduce_battery_state": {
+      "name": "Batterijstatus verlagen",
+      "description": "Verminder de opgeslagen lading van een specifieke gesimuleerde batterij met een bepaald bedrag in kWh en registreer dit als batterijenergie-uit",
+      "fields": {
+        "device_id": {
+          "name": "Doelbatterijapparaat",
+          "description": "Apparaat waarvoor de batterijstatus moet worden verlaagd"
+        },
+        "reduction_kwh": {
+          "name": "Vermindering (kWh)",
+          "description": "Hoeveelheid opgeslagen energie die uit de batterij wordt verwijderd in kWh"
+        }
+      }
     }
   }
 }

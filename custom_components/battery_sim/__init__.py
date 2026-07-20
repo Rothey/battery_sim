@@ -296,6 +296,17 @@ async def async_setup_entry(hass, entry) -> bool:
         else:
             _LOGGER.error("No handle matched for device_id: %s", device_id)
 
+    async def handle_reduce_battery_state(call):
+        device_id = call.data.get("device_id")
+        reduction_kwh = call.data.get("reduction_kwh")
+        _LOGGER.debug("Calling reduce_battery_state with: %s", reduction_kwh)
+
+        handle_entry = _get_handle_for_device_id(device_id)
+        if handle_entry is None:
+            return
+
+        handle_entry.async_reduce_battery_state(reduction_kwh)
+
     if not hass.data.get(SERVICE_REGISTRATION_KEY):
         hass.services.async_register(
             DOMAIN,
@@ -336,6 +347,18 @@ async def async_setup_entry(hass, entry) -> bool:
             schema=vol.Schema({
                 vol.Required("device_id"): str,
                 vol.Required("stored_energy_value"): vol.Coerce(float)
+            }),
+        )
+
+        hass.services.async_register(
+            DOMAIN,
+            "reduce_battery_state",
+            handle_reduce_battery_state,
+            schema=vol.Schema({
+                vol.Required("device_id"): str,
+                vol.Required("reduction_kwh"): vol.All(
+                    vol.Coerce(float), vol.Range(min=0)
+                ),
             }),
         )
         hass.data[SERVICE_REGISTRATION_KEY] = True
@@ -416,6 +439,7 @@ async def async_unload_entry(hass, config_entry):
             hass.services.async_remove(DOMAIN, "set_battery_cycles")
             hass.services.async_remove(DOMAIN, "get_efficiency")
             hass.services.async_remove(DOMAIN, "set_stored_energy_value")
+            hass.services.async_remove(DOMAIN, "reduce_battery_state")
             hass.data.pop(SERVICE_REGISTRATION_KEY, None)
             hass.data.pop(DOMAIN, None)
 
@@ -720,6 +744,35 @@ class SimulatedBatteryHandle:
         _LOGGER.debug("Set stored energy value")
         self._stored_energy_value = float(stored_energy_value)
         self._update_average_energy_value_sensor()
+        dispatcher_send(self._hass, f"{self._name}-{MESSAGE_TYPE_BATTERY_UPDATE}")
+        return
+
+    def async_reduce_battery_state(self, reduction_kwh: float):
+        """Reduce the simulated charge state by a given energy amount and log it as output energy."""
+        _LOGGER.debug("Reduce battery state by %s kWh", reduction_kwh)
+        reduction = max(float(reduction_kwh), 0.0)
+        if reduction <= 0.0:
+            dispatcher_send(self._hass, f"{self._name}-{MESSAGE_TYPE_BATTERY_UPDATE}")
+            return
+
+        previous_charge_state = max(float(self._charge_state), 0.0)
+        actual_reduction = min(reduction, previous_charge_state)
+        new_charge_state = max(previous_charge_state - actual_reduction, 0.0)
+        self._charge_state = new_charge_state
+        self._sensors[ATTR_ENERGY_BATTERY_OUT] += actual_reduction
+        self._rescale_stored_energy_value_for_charge_state_change(
+            previous_charge_state,
+            new_charge_state,
+        )
+        self._charge_percentage = round(
+            100 * self._charge_state / self.current_max_capacity
+        )
+        if self._charge_percentage < 2:
+            self._sensors[ATTR_STATUS] = MODE_EMPTY
+        elif self._charge_percentage > 98:
+            self._sensors[ATTR_STATUS] = MODE_FULL
+        else:
+            self._sensors[ATTR_STATUS] = "Normal"
         dispatcher_send(self._hass, f"{self._name}-{MESSAGE_TYPE_BATTERY_UPDATE}")
         return
 

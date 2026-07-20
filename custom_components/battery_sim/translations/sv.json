@@ -238,6 +238,20 @@
           "description": "Totalt monetärt värde som för närvarande tilldelas energin som lagras i batteriet"
         }
       }
+    },
+    "reduce_battery_state": {
+      "name": "Minska batteritillstånd",
+      "description": "Minska lagrad laddning i en specifik simulerad batteri med ett angivet belopp i kWh och registrera det som batterienergi ut",
+      "fields": {
+        "device_id": {
+          "name": "Målbatterienhet",
+          "description": "Enhet för vilken batteritillståndet ska minskas"
+        },
+        "reduction_kwh": {
+          "name": "Minskning (kWh)",
+          "description": "Mängd lagrad energi som ska tas bort från batteriet i kWh"
+        }
+      }
     }
   }
 }

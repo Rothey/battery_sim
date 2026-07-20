@@ -238,6 +238,20 @@
           "description": "Total monetary value currently assigned to the energy stored in the battery"
         }
       }
+    },
+    "reduce_battery_state": {
+      "name": "Reduce Battery State",
+      "description": "Reduce the stored charge of a specific simulated battery by a given amount of kWh and record it as battery energy out",
+      "fields": {
+        "device_id": {
+          "name": "Target Battery Device",
+          "description": "Device to reduce the battery state for"
+        },
+        "reduction_kwh": {
+          "name": "Reduction (kWh)",
+          "description": "Amount of stored energy to remove from the battery in kWh"
+        }
+      }
     }
   }
 }

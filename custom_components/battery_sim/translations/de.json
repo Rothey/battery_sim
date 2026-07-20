@@ -238,6 +238,20 @@
           "description": "Gesamter Geldwert, der aktuell der in der Batterie gespeicherten Energie zugeordnet ist"
         }
       }
+    },
+    "reduce_battery_state": {
+      "name": "Batteriezustand reduzieren",
+      "description": "Reduziert die gespeicherte Ladung einer bestimmten simulierten Batterie um einen gegebenen Betrag in kWh und zeichnet sie als Batteriestromausgang auf",
+      "fields": {
+        "device_id": {
+          "name": "Ziel-Batteriegerät",
+          "description": "Gerät, für das der Batteriezustand reduziert werden soll"
+        },
+        "reduction_kwh": {
+          "name": "Reduktion (kWh)",
+          "description": "Menge an gespeicherter Energie, die in kWh aus der Batterie entfernt werden soll"
+        }
+      }
     }
   }
 }

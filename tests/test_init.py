@@ -7,6 +7,7 @@ from homeassistant.helpers import entity_registry as er
 from homeassistant.setup import async_setup_component
 
 from custom_components.battery_sim.const import (
+    ATTR_ENERGY_BATTERY_OUT,
     CONF_BATTERY_EFFICIENCY,
     CONF_BATTERY_MAX_CHARGE_RATE,
     CONF_BATTERY_MAX_DISCHARGE_RATE,
@@ -23,6 +24,7 @@ SERVICES = (
     "set_battery_cycles",
     "get_efficiency",
     "set_stored_energy_value",
+    "reduce_battery_state",
 )
 
 
@@ -153,6 +155,22 @@ async def test_set_stored_energy_value_service(hass, setup_battery):
     await hass.async_block_till_done()
 
     assert handle._stored_energy_value == pytest.approx(1.5)
+
+
+async def test_reduce_battery_state_service(hass, setup_battery):
+    entry, handle = await setup_battery()
+    device = get_battery_device(hass, entry)
+
+    await hass.services.async_call(
+        DOMAIN,
+        "reduce_battery_state",
+        {"device_id": device.id, "reduction_kwh": 2.5},
+        blocking=True,
+    )
+    await hass.async_block_till_done()
+
+    assert handle._charge_state == pytest.approx(2.5)
+    assert handle._sensors[ATTR_ENERGY_BATTERY_OUT] == pytest.approx(2.5)
 
 
 async def test_get_efficiency_service(hass, setup_battery):
