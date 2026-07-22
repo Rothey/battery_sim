@@ -760,6 +760,21 @@ class SimulatedBatteryHandle:
         new_charge_state = max(previous_charge_state - actual_reduction, 0.0)
         self._charge_state = new_charge_state
         self._sensors[ATTR_ENERGY_BATTERY_OUT] += actual_reduction
+        
+        # Reduce simulated import energy values since this energy came from the grid
+        for input_details in self._inputs:
+            if input_details[SENSOR_TYPE] == IMPORT:
+                simulated_sensor_key = input_details[SIMULATED_SENSOR]
+                if simulated_sensor_key in self._sensors:
+                    # Reduce the import sensor value by the actual reduction
+                    self._sensors[simulated_sensor_key] = max(
+                        float(self._sensors[simulated_sensor_key]) - actual_reduction,
+                        0.0
+                    )
+                    _LOGGER.debug(
+                        f"({self._name}) Reduced simulated import sensor '{simulated_sensor_key}' by {actual_reduction} kWh"
+                    )
+        
         self._rescale_stored_energy_value_for_charge_state_change(
             previous_charge_state,
             new_charge_state,
